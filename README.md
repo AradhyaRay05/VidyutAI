@@ -61,38 +61,6 @@ Households lack visibility into their energy consumption patterns, leading to:
 
 ---
 
-## 📁 Project Structure
-
-```
-VidyutAI/
-├── backend/
-│   ├── app.py                 # Flask API server
-│   └── config.py              # Configuration
-├── ml_models/
-│   ├── energy_predictor.py    # XGBoost prediction model
-│   ├── visualizations.py      # Chart generation
-│   └── models/                # Trained models
-├── database/
-│   ├── schema.sql             # MySQL schema
-│   └── db_config.py           # Database configuration
-├── frontend/
-│   ├── templates/             # HTML pages
-│   │   ├── index.html
-│   │   ├── login.html
-│   │   └── dashboard.html
-│   └── static/
-│       ├── css/
-│       ├── js/
-│       ├── images/
-│       └── plots/
-├── data/
-├── requirements.txt
-├── Procfile
-└── runtime.txt
-```
-
----
-
 ## 🚀 Installation
 
 ### Prerequisites
