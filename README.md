@@ -223,8 +223,7 @@ Energy-Consumption-Tracker/- **North India**: ₹5.50 - ₹9.00 per kWh
 
 ### Training Process:
 
-```python### Step 4: Configure Database
-
+```python
 from ml_models.energy_predictor import EnergyPredictor
 
 1. **Start MySQL Server**
