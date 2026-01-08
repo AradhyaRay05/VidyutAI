@@ -1,4 +1,4 @@
-# ⚡ VidyutAI Energy Consumption Tracker
+# ⚡ VidyutAI - Energy Consumption Tracker
 
 > AI-powered energy consumption tracker for Indian households — monitor, analyze, and predict your electricity usage with machine learning.
 
