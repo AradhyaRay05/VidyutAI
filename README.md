@@ -2,10 +2,13 @@
 
 > AI-powered energy consumption tracker for Indian households — monitor, analyze, and predict your electricity usage with machine learning.
 
+### 🌐 [Live Demo](https://vidyutai.duckdns.org)
+
 ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
 ![Flask](https://img.shields.io/badge/Flask-2.3.3-green.svg)
 ![XGBoost](https://img.shields.io/badge/ML-XGBoost-orange.svg)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg)
+![AWS](https://img.shields.io/badge/Deployed-AWS%20EC2-orange.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 ---
@@ -57,7 +60,8 @@ Households lack visibility into their energy consumption patterns, leading to:
 | **ML** | XGBoost, scikit-learn, pandas, numpy |
 | **Visualization** | Matplotlib, Seaborn |
 | **Frontend** | HTML5, CSS3, JavaScript |
-| **Auth** | bcrypt |[Unit]
+| **Auth** | bcrypt |
+| **Deployment** | AWS EC2, Nginx, SSL/HTTPS |[Unit]
 Description=VidyutAI Flask App
 After=network.target
 
@@ -195,7 +199,20 @@ WantedBy=multi-user.target
 
 ---
 
-## 👨‍💻 Author
+## � Deployment
+
+Deployed on **AWS EC2** with:
+- Ubuntu 24.04 LTS
+- Nginx reverse proxy
+- Gunicorn WSGI server
+- Let's Encrypt SSL certificate
+- Auto-renewal enabled
+
+**Live URL:** https://vidyutai.duckdns.org
+
+---
+
+## �👨‍💻 Author
 
 **Aradhya Ray**
 - GitHub: [@AradhyaRay05](https://github.com/AradhyaRay05)
