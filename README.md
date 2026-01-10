@@ -57,7 +57,19 @@ Households lack visibility into their energy consumption patterns, leading to:
 | **ML** | XGBoost, scikit-learn, pandas, numpy |
 | **Visualization** | Matplotlib, Seaborn |
 | **Frontend** | HTML5, CSS3, JavaScript |
-| **Auth** | bcrypt |
+| **Auth** | bcrypt |[Unit]
+Description=VidyutAI Flask App
+After=network.target
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/VidyutAI
+Environment="PATH=/home/ubuntu/VidyutAI/venv/bin"
+ExecStart=/home/ubuntu/VidyutAI/venv/bin/gunicorn --workers 2 --bind 0.0.0.0:5000 backend.app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
 
 ---
 
