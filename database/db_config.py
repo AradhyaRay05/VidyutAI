@@ -22,7 +22,7 @@ class DatabaseConfig:
         self.password = os.getenv('MYSQL_PASSWORD') or os.getenv('DB_PASSWORD', '')
         
         # Debug: Print connection info (password masked)
-        print(f"🔌 Database Config: host={self.host}, port={self.port}, db={self.database}, user={self.user}")
+        print(f"DB Config: host={self.host}, port={self.port}, db={self.database}, user={self.user}")
         
         self.connection = None
         self.connection_pool = None
