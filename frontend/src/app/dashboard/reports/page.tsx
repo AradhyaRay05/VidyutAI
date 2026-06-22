@@ -54,6 +54,7 @@ export default function ReportsPage() {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [efficiency, setEfficiency] = useState<{ score: number; label: string }>({ score: 0, label: "..." });
   const [loading, setLoading] = useState(true);
+  const [pdfLoading, setPdfLoading] = useState(false);
 
   const fetchData = useCallback(async () => {
     if (!token) return;
@@ -79,6 +80,28 @@ export default function ReportsPage() {
   }, [token]);
 
   useEffect(() => { fetchData(); }, [fetchData]);
+
+  const downloadPDF = async () => {
+    if (!token) return;
+    setPdfLoading(true);
+    try {
+      const res = await fetch(API_BASE + "/api/reports/pdf", {
+        headers: { Authorization: "Bearer " + token },
+      });
+      if (!res.ok) throw new Error("Failed to generate report");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "VidyutAI_Report_" + new Date().toISOString().slice(0, 10) + ".pdf";
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("PDF download failed:", err);
+    } finally {
+      setPdfLoading(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -126,9 +149,9 @@ export default function ReportsPage() {
             <h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-headline)" }}>Smart Reports</h1>
             <p className="text-sm text-muted-foreground mt-1">AI-generated report based on your {dailyData.length} days of data</p>
           </div>
-          <Button size="lg" className="gap-2">
-            <Download className="h-4 w-4" />
-            Export PDF Report
+          <Button size="lg" className="gap-2" onClick={downloadPDF} disabled={pdfLoading}>
+            {pdfLoading ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Download className="h-4 w-4" />}
+            {pdfLoading ? "Generating..." : "Export PDF Report"}
           </Button>
         </div>
       </FadeUp>

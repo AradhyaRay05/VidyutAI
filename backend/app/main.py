@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.routers import auth, dashboard, data, predictions, ai_features
+from app.routers import auth, dashboard, data, predictions, ai_features, reports
 
 app = FastAPI(title=settings.APP_NAME, description="AI Energy Intelligence Platform API", version="2.0.0")
 
@@ -18,6 +18,7 @@ app.include_router(dashboard.router)
 app.include_router(data.router)
 app.include_router(predictions.router)
 app.include_router(ai_features.router)
+app.include_router(reports.router)
 
 
 @app.get("/")
