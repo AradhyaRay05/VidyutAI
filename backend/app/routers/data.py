@@ -84,11 +84,15 @@ async def add_energy_record(req: AddRecordRequest, current_user: dict = Depends(
     timestamp = req.timestamp or datetime.now().isoformat()
     cost = req.power_usage_kwh * tariff_rate
 
-    success = db_service.add_energy_record(
-        current_user["user_id"], timestamp, req.appliance_name, req.power_usage_kwh, cost, req.duration_hours,
-    )
+    try:
+        success = db_service.add_energy_record(
+            current_user["user_id"], timestamp, req.appliance_name, req.power_usage_kwh, cost, req.duration_hours,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+
     if not success:
-        raise HTTPException(status_code=500, detail="Failed to add record")
+        raise HTTPException(status_code=500, detail="Failed to insert record into database")
     return {"message": "Record added successfully"}
 
 

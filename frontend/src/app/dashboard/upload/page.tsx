@@ -104,7 +104,10 @@ export default function UploadPage() {
           duration_hours: parseFloat(manualHours) || 1.0,
         }),
       });
-      if (!res.ok) throw new Error("Failed to add record");
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({ detail: "Failed to add record" }));
+        throw new Error(errData.detail || "Failed to add record");
+      }
       setManualSuccess(true);
       setManualAppliance("");
       setManualKwh("");
