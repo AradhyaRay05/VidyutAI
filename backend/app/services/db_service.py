@@ -1,11 +1,12 @@
-import sys
 import os
+import sys
 
 _project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 if _project_root not in sys.path:
     sys.path.insert(0, _project_root)
 
 _db = None
+_backend = None
 
 
 class DBService:
@@ -15,10 +16,17 @@ class DBService:
 
     def _get_db(self):
         if self._db is None:
-            from app.services.sqlite_db import db as sqlite_db
-            self._db = sqlite_db
-            self._backend = "sqlite"
-            print("[DB] Using SQLite database")
+            database_url = os.environ.get("DATABASE_URL")
+            if database_url:
+                from app.services.pg_db import PostgresDatabase
+                self._db = PostgresDatabase()
+                self._backend = "postgresql"
+                print("[DB] Using PostgreSQL database")
+            else:
+                from app.services.sqlite_db import db as sqlite_db
+                self._db = sqlite_db
+                self._backend = "sqlite"
+                print("[DB] Using SQLite database (local)")
         return self._db
 
     def get_user_by_username(self, username):
@@ -55,10 +63,4 @@ class DBService:
         return self._get_db().bulk_insert(user_id, records)
 
 
-def _get_db_service():
-    svc = DBService()
-    svc._get_db()
-    return svc
-
-
-db_service = _get_db_service()
+db_service = DBService()
